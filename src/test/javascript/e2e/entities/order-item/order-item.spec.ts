@@ -28,7 +28,7 @@ describe('OrderItem e2e test', () => {
         orderItemUpdatePage.cancel();
     });
 
-    it('should create and save OrderItems', () => {
+    /* it('should create and save OrderItems', () => {
         orderItemComponentsPage.clickOnCreateButton();
         orderItemUpdatePage.setQuantityInput('5');
         expect(orderItemUpdatePage.getQuantityInput()).toMatch('5');
@@ -39,7 +39,7 @@ describe('OrderItem e2e test', () => {
         orderItemUpdatePage.orderSelectLastOption();
         orderItemUpdatePage.save();
         expect(orderItemUpdatePage.getSaveButton().isPresent()).toBeFalsy();
-    });
+    });*/
 
     afterAll(() => {
         navBarPage.autoSignOut();

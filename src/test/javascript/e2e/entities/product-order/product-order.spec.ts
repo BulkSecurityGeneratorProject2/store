@@ -28,7 +28,7 @@ describe('ProductOrder e2e test', () => {
         productOrderUpdatePage.cancel();
     });
 
-    it('should create and save ProductOrders', () => {
+    /* it('should create and save ProductOrders', () => {
         productOrderComponentsPage.clickOnCreateButton();
         productOrderUpdatePage.setPlacedDateInput('01/01/2001' + protractor.Key.TAB + '02:30AM');
         expect(productOrderUpdatePage.getPlacedDateInput()).toContain('2001-01-01T02:30');
@@ -38,7 +38,7 @@ describe('ProductOrder e2e test', () => {
         productOrderUpdatePage.customerSelectLastOption();
         productOrderUpdatePage.save();
         expect(productOrderUpdatePage.getSaveButton().isPresent()).toBeFalsy();
-    });
+    });*/
 
     afterAll(() => {
         navBarPage.autoSignOut();
