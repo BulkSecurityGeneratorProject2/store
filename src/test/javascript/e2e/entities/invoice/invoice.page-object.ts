@@ -23,6 +23,7 @@ export class InvoiceUpdatePage {
     paymentMethodSelect = element(by.id('field_paymentMethod'));
     paymentDateInput = element(by.id('field_paymentDate'));
     paymentAmountInput = element(by.id('field_paymentAmount'));
+    codeInput = element(by.id('field_code'));
     orderSelect = element(by.id('field_order'));
 
     getPageTitle() {
@@ -87,6 +88,14 @@ export class InvoiceUpdatePage {
 
     getPaymentAmountInput() {
         return this.paymentAmountInput.getAttribute('value');
+    }
+
+    setCodeInput(code): promise.Promise<void> {
+        return this.codeInput.sendKeys(code);
+    }
+
+    getCodeInput() {
+        return this.codeInput.getAttribute('value');
     }
 
     orderSelectLastOption(): promise.Promise<void> {
