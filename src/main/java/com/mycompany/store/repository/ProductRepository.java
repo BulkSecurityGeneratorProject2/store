@@ -1,6 +1,9 @@
 package com.mycompany.store.repository;
 
 import com.mycompany.store.domain.Product;
+
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.*;
 import org.springframework.stereotype.Repository;
 
@@ -11,5 +14,7 @@ import org.springframework.stereotype.Repository;
 @SuppressWarnings("unused")
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
+
+	Optional<Product> findOneByIdAndCustomerUserLogin(Long id, String login);
 
 }
