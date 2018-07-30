@@ -17,8 +17,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ShipmentRepository extends JpaRepository<Shipment, Long> {
 
-	Page<Shipment> findAllByCustomerUserLogin(String login, Pageable pageable);
+	Page<Shipment> findAllByInvoiceOrderCustomerUserLogin(String login, Pageable pageable);
 
-	Optional<Shipment> findOneByIdAndCustomerUserLogin(Long id, String login);
+	Optional<Shipment> findOneByIdAndInvoiceOrderCustomerUserLogin(Long id, String login);
 
 }

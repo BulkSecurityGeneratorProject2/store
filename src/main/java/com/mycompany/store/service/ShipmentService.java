@@ -1,20 +1,18 @@
 package com.mycompany.store.service;
 
-import com.mycompany.store.domain.Shipment;
-import com.mycompany.store.repository.ShipmentRepository;
-import com.mycompany.store.security.AuthoritiesConstants;
-import com.mycompany.store.security.SecurityUtils;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-
-import java.util.Optional;
+import com.mycompany.store.domain.Shipment;
+import com.mycompany.store.repository.ShipmentRepository;
+import com.mycompany.store.security.AuthoritiesConstants;
+import com.mycompany.store.security.SecurityUtils;
 /**
  * Service Implementation for managing Shipment.
  */
@@ -37,7 +35,8 @@ public class ShipmentService {
      * @return the persisted entity
      */
     public Shipment save(Shipment shipment) {
-        log.debug("Request to save Shipment : {}", shipment);        return shipmentRepository.save(shipment);
+        log.debug("Request to save Shipment : {}", shipment);
+        return shipmentRepository.save(shipment);
     }
 
     /**
@@ -48,11 +47,11 @@ public class ShipmentService {
      */
     @Transactional(readOnly = true)
     public Page<Shipment> findAll(Pageable pageable) {
-        log.debug("Request to get all Shipments");
+        log.debug("Request to get all Shipments");        
         if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
 			return shipmentRepository.findAll(pageable);
 		} else
-			return shipmentRepository.findAllByCustomerUserLogin(SecurityUtils.getCurrentUserLogin().get(),
+			return shipmentRepository.findAllByInvoiceOrderCustomerUserLogin(SecurityUtils.getCurrentUserLogin().get(),
 					pageable);
     }
 
@@ -65,11 +64,11 @@ public class ShipmentService {
      */
     @Transactional(readOnly = true)
     public Optional<Shipment> findOne(Long id) {
-        log.debug("Request to get Shipment : {}", id);
+        log.debug("Request to get Shipment : {}", id);        
         if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
 			return shipmentRepository.findById(id);
 		} else
-			return shipmentRepository.findOneByIdAndCustomerUserLogin(id, SecurityUtils.getCurrentUserLogin().get());
+			return shipmentRepository.findOneByIdAndInvoiceOrderCustomerUserLogin(id, SecurityUtils.getCurrentUserLogin().get());
     }
 
     /**

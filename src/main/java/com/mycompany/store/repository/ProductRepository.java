@@ -13,8 +13,6 @@ import org.springframework.stereotype.Repository;
  */
 @SuppressWarnings("unused")
 @Repository
-public interface ProductRepository extends JpaRepository<Product, Long> {
-
-	Optional<Product> findOneByIdAndCustomerUserLogin(Long id, String login);
+public interface ProductRepository extends JpaRepository<Product, Long> {	
 
 }

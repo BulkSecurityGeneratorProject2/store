@@ -11,8 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.mycompany.store.domain.Product;
 import com.mycompany.store.repository.ProductRepository;
-import com.mycompany.store.security.AuthoritiesConstants;
-import com.mycompany.store.security.SecurityUtils;
 
 /**
  * Service Implementation for managing Product.
@@ -64,10 +62,7 @@ public class ProductService {
 	@Transactional(readOnly = true)
 	public Optional<Product> findOne(Long id) {
 		log.debug("Request to get Product : {}", id);
-		if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
-			return productRepository.findById(id);
-		} else
-			return productRepository.findOneByIdAndCustomerUserLogin(id, SecurityUtils.getCurrentUserLogin().get());
+		return productRepository.findById(id);
 	}
 
 	/**

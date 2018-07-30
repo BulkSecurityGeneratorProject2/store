@@ -1,20 +1,20 @@
 package com.mycompany.store.service;
 
-import com.mycompany.store.domain.Invoice;
-import com.mycompany.store.repository.InvoiceRepository;
-import com.mycompany.store.security.AuthoritiesConstants;
-import com.mycompany.store.security.SecurityUtils;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.mycompany.store.domain.Invoice;
+import com.mycompany.store.repository.InvoiceRepository;
+import com.mycompany.store.security.AuthoritiesConstants;
+import com.mycompany.store.security.SecurityUtils;
 
-import java.util.Optional;
+
 /**
  * Service Implementation for managing Invoice.
  */
@@ -37,7 +37,8 @@ public class InvoiceService {
      * @return the persisted entity
      */
     public Invoice save(Invoice invoice) {
-        log.debug("Request to save Invoice : {}", invoice);        return invoiceRepository.save(invoice);
+        log.debug("Request to save Invoice : {}", invoice);
+        return invoiceRepository.save(invoice);
     }
 
     /**
@@ -48,14 +49,13 @@ public class InvoiceService {
      */
     @Transactional(readOnly = true)
     public Page<Invoice> findAll(Pageable pageable) {
-        log.debug("Request to get all Invoices");
+        log.debug("Request to get all Invoices");        
         if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
 			return invoiceRepository.findAll(pageable);
 		} else
-			return invoiceRepository.findAllByCustomerUserLogin(SecurityUtils.getCurrentUserLogin().get(),
-					pageable);        
+			return invoiceRepository.findAllByOrderCustomerUserLogin(SecurityUtils.getCurrentUserLogin().get(),
+					pageable);
     }
-
 
     /**
      * Get one invoice by id.
@@ -65,11 +65,11 @@ public class InvoiceService {
      */
     @Transactional(readOnly = true)
     public Optional<Invoice> findOne(Long id) {
-        log.debug("Request to get Invoice : {}", id);
+        log.debug("Request to get Invoice : {}", id);        
         if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
 			return invoiceRepository.findById(id);
 		} else
-			return invoiceRepository.findOneByIdAndCustomerUserLogin(id, SecurityUtils.getCurrentUserLogin().get());
+			return invoiceRepository.findOneByIdAndOrderCustomerUserLogin(id, SecurityUtils.getCurrentUserLogin().get());
     }
 
     /**
