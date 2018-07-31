@@ -45,7 +45,7 @@ import com.mycompany.store.domain.enumeration.PaymentMethod;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = StoreApp.class)
-//@WithMockUser(username="admin", authorities={"ROLE_ADMIN"}, password = "admin")
+@WithMockUser(username="admin", authorities={"ROLE_ADMIN"}, password = "admin")
 public class InvoiceResourceIntTest {
 
     private static final Instant DEFAULT_DATE = Instant.ofEpochMilli(0L);
