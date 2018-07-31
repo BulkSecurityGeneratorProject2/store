@@ -1,20 +1,11 @@
 package com.mycompany.store.web.rest;
 
-import static com.mycompany.store.web.rest.TestUtil.createFormattingConversionService;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.hamcrest.Matchers.hasItem;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import com.mycompany.store.StoreApp;
 
-import java.math.BigDecimal;
-import java.util.List;
-
-import javax.persistence.EntityManager;
+import com.mycompany.store.domain.Product;
+import com.mycompany.store.repository.ProductRepository;
+import com.mycompany.store.service.ProductService;
+import com.mycompany.store.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -31,12 +22,17 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Base64Utils;
 
-import com.mycompany.store.StoreApp;
-import com.mycompany.store.domain.Product;
+import javax.persistence.EntityManager;
+import java.math.BigDecimal;
+import java.util.List;
+
+import static com.mycompany.store.web.rest.TestUtil.createFormattingConversionService;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.hasItem;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+
 import com.mycompany.store.domain.enumeration.Size;
-import com.mycompany.store.repository.ProductRepository;
-import com.mycompany.store.service.ProductService;
-import com.mycompany.store.web.rest.errors.ExceptionTranslator;
 /**
  * Test class for the ProductResource REST controller.
  *
@@ -310,11 +306,11 @@ public class ProductResourceIntTest {
         restProductMockMvc.perform(put("/api/products")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
             .content(TestUtil.convertObjectToJsonBytes(product)))
-            .andExpect(status().isBadRequest());
+            .andExpect(status().isCreated());
 
         // Validate the Product in the database
         List<Product> productList = productRepository.findAll();
-        assertThat(productList).hasSize(databaseSizeBeforeUpdate);
+        assertThat(productList).hasSize(databaseSizeBeforeUpdate + 1);
     }
 
     @Test

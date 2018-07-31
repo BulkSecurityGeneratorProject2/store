@@ -292,11 +292,11 @@ public class ProductOrderResourceIntTest {
         restProductOrderMockMvc.perform(put("/api/product-orders")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
             .content(TestUtil.convertObjectToJsonBytes(productOrder)))
-            .andExpect(status().isBadRequest());
+            .andExpect(status().isCreated());
 
         // Validate the ProductOrder in the database
         List<ProductOrder> productOrderList = productOrderRepository.findAll();
-        assertThat(productOrderList).hasSize(databaseSizeBeforeUpdate);
+        assertThat(productOrderList).hasSize(databaseSizeBeforeUpdate + 1);
     }
 
     @Test

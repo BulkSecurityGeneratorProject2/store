@@ -77,7 +77,7 @@ public class OrderItemResource {
     public ResponseEntity<OrderItem> updateOrderItem(@Valid @RequestBody OrderItem orderItem) throws URISyntaxException {
         log.debug("REST request to update OrderItem : {}", orderItem);
         if (orderItem.getId() == null) {
-            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
+            return createOrderItem(orderItem);
         }
         OrderItem result = orderItemService.save(orderItem);
         return ResponseEntity.ok()

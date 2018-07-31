@@ -429,11 +429,11 @@ public class CustomerResourceIntTest {
         restCustomerMockMvc.perform(put("/api/customers")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
             .content(TestUtil.convertObjectToJsonBytes(customer)))
-            .andExpect(status().isBadRequest());
+            .andExpect(status().isCreated());
 
         // Validate the Customer in the database
         List<Customer> customerList = customerRepository.findAll();
-        assertThat(customerList).hasSize(databaseSizeBeforeUpdate);
+        assertThat(customerList).hasSize(databaseSizeBeforeUpdate + 1);
     }
 
     @Test

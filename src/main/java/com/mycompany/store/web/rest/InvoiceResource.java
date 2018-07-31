@@ -77,7 +77,7 @@ public class InvoiceResource {
     public ResponseEntity<Invoice> updateInvoice(@Valid @RequestBody Invoice invoice) throws URISyntaxException {
         log.debug("REST request to update Invoice : {}", invoice);
         if (invoice.getId() == null) {
-            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
+            return createInvoice(invoice);
         }
         Invoice result = invoiceService.save(invoice);
         return ResponseEntity.ok()

@@ -77,7 +77,7 @@ public class ShipmentResource {
     public ResponseEntity<Shipment> updateShipment(@Valid @RequestBody Shipment shipment) throws URISyntaxException {
         log.debug("REST request to update Shipment : {}", shipment);
         if (shipment.getId() == null) {
-            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
+            return createShipment(shipment);
         }
         Shipment result = shipmentService.save(shipment);
         return ResponseEntity.ok()

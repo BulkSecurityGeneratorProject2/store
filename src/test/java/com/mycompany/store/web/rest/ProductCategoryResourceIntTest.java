@@ -233,11 +233,11 @@ public class ProductCategoryResourceIntTest {
         restProductCategoryMockMvc.perform(put("/api/product-categories")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
             .content(TestUtil.convertObjectToJsonBytes(productCategory)))
-            .andExpect(status().isBadRequest());
+            .andExpect(status().isCreated());
 
         // Validate the ProductCategory in the database
         List<ProductCategory> productCategoryList = productCategoryRepository.findAll();
-        assertThat(productCategoryList).hasSize(databaseSizeBeforeUpdate);
+        assertThat(productCategoryList).hasSize(databaseSizeBeforeUpdate + 1);
     }
 
     @Test

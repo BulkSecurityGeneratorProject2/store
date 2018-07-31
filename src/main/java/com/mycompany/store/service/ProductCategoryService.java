@@ -33,7 +33,8 @@ public class ProductCategoryService {
      * @return the persisted entity
      */
     public ProductCategory save(ProductCategory productCategory) {
-        log.debug("Request to save ProductCategory : {}", productCategory);        return productCategoryRepository.save(productCategory);
+        log.debug("Request to save ProductCategory : {}", productCategory);        
+        return productCategoryRepository.save(productCategory);
     }
 
     /**

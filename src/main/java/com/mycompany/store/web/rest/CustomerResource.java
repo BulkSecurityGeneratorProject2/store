@@ -74,7 +74,7 @@ public class CustomerResource {
     public ResponseEntity<Customer> updateCustomer(@Valid @RequestBody Customer customer) throws URISyntaxException {
         log.debug("REST request to update Customer : {}", customer);
         if (customer.getId() == null) {
-            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
+            return createCustomer(customer);
         }
         Customer result = customerService.save(customer);
         return ResponseEntity.ok()

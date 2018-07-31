@@ -256,11 +256,11 @@ public class ShipmentResourceIntTest {
         restShipmentMockMvc.perform(put("/api/shipments")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
             .content(TestUtil.convertObjectToJsonBytes(shipment)))
-            .andExpect(status().isBadRequest());
+            .andExpect(status().isCreated());
 
         // Validate the Shipment in the database
         List<Shipment> shipmentList = shipmentRepository.findAll();
-        assertThat(shipmentList).hasSize(databaseSizeBeforeUpdate);
+        assertThat(shipmentList).hasSize(databaseSizeBeforeUpdate + 1);
     }
 
     @Test

@@ -147,13 +147,13 @@ public class InvoiceResourceIntTest {
         List<Invoice> invoiceList = invoiceRepository.findAll();
         assertThat(invoiceList).hasSize(databaseSizeBeforeCreate + 1);
         Invoice testInvoice = invoiceList.get(invoiceList.size() - 1);
+        assertThat(testInvoice.getCode()).isEqualTo(DEFAULT_CODE);
         assertThat(testInvoice.getDate()).isEqualTo(DEFAULT_DATE);
         assertThat(testInvoice.getDetails()).isEqualTo(DEFAULT_DETAILS);
         assertThat(testInvoice.getStatus()).isEqualTo(DEFAULT_STATUS);
         assertThat(testInvoice.getPaymentMethod()).isEqualTo(DEFAULT_PAYMENT_METHOD);
         assertThat(testInvoice.getPaymentDate()).isEqualTo(DEFAULT_PAYMENT_DATE);
         assertThat(testInvoice.getPaymentAmount()).isEqualTo(DEFAULT_PAYMENT_AMOUNT);
-        assertThat(testInvoice.getCode()).isEqualTo(DEFAULT_CODE);
     }
 
     @Test
@@ -381,11 +381,11 @@ public class InvoiceResourceIntTest {
         restInvoiceMockMvc.perform(put("/api/invoices")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
             .content(TestUtil.convertObjectToJsonBytes(invoice)))
-            .andExpect(status().isBadRequest());
+            .andExpect(status().isCreated());
 
         // Validate the Invoice in the database
         List<Invoice> invoiceList = invoiceRepository.findAll();
-        assertThat(invoiceList).hasSize(databaseSizeBeforeUpdate);
+        assertThat(invoiceList).hasSize(databaseSizeBeforeUpdate + 1);
     }
 
     @Test
