@@ -3,12 +3,10 @@
 node {
 
 	stage('package and deploy') {
-    	environment {
-    		HEROKU_API_KEY = credentials('HEROKU_API_KEY')
-    	}    	
-        sh "./mvnw com.heroku.sdk:heroku-maven-plugin:2.0.5:deploy -DskipTests -Pprod -Dheroku.appName="
-        archiveArtifacts artifacts: '**/target/*.war', fingerprint: true
-    }
+		withEnv(["NAME=value"]) {
+			sh "./mvnw com.heroku.sdk:heroku-maven-plugin:2.0.5:deploy -DskipTests -Pprod -Dheroku.appName="
+             archiveArtifacts artifacts: '**/target/*.war', fingerprint: true
+    }    	
 
     stage('checkout') {
         checkout scm
