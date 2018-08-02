@@ -45,7 +45,9 @@ node {
     	environment {
     		HEROKU_API_KEY = credentials('HEROKU_API_KEY')
     	}
-        sh "HEROKU_API_KEY = credentials('HEROKU_API_KEY') ./mvnw com.heroku.sdk:heroku-maven-plugin:2.0.5:deploy -DskipTests -Pprod -Dheroku.appName="
+    	variables:
+    		HEROKU_API_KEY: $HEROKU_API_KEY
+        sh "$HEROKU_API_KEY./mvnw com.heroku.sdk:heroku-maven-plugin:2.0.5:deploy -DskipTests -Pprod -Dheroku.appName="
         archiveArtifacts artifacts: '**/target/*.war', fingerprint: true
     }
 
