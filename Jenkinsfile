@@ -1,8 +1,7 @@
 #!/usr/bin/env groovy
 
-HEROKU_API_KEY="a225b2c3-24dc-4d46-b3a5-a487aef20914"
-
 node {
+
     stage('checkout') {
         checkout scm
     }
@@ -43,7 +42,10 @@ node {
     }
 
     stage('package and deploy') {
-        sh "HEROKU_API_KEY="$HEROKU_API_KEY" ./mvnw com.heroku.sdk:heroku-maven-plugin:2.0.5:deploy -DskipTests -Pprod -Dheroku.appName="
+    	environment {
+    		HEROKU_API_KEY = credentials('HEROKU_API_KEY')
+    	}
+        sh ./mvnw com.heroku.sdk:heroku-maven-plugin:2.0.5:deploy -DskipTests -Pprod -Dheroku.appName="
         archiveArtifacts artifacts: '**/target/*.war', fingerprint: true
     }
 
