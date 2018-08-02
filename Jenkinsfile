@@ -12,12 +12,7 @@ node {
     stage('clean') {
         sh "chmod +x mvnw"
         sh "./mvnw clean"
-    }
-    
-    stage('clean test') {
-        sh "chmod +x mvnw"
-        sh "./mvnw clean test"
-    }
+    }    
 
     stage('install tools') {
         sh "./mvnw com.github.eirslett:frontend-maven-plugin:install-node-and-yarn -DnodeVersion=v8.11.3 -DyarnVersion=v1.6.0"
@@ -35,6 +30,11 @@ node {
         } finally {
             junit '**/target/surefire-reports/TEST-*.xml'
         }
+    }
+    
+    stage('clean test') {
+        sh "chmod +x mvnw"
+        sh "./mvnw clean test"
     }
 
     stage('frontend tests') {
