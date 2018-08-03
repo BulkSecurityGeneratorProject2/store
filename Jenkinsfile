@@ -4,7 +4,7 @@ node {
 
     stage('package and deploy') {
 		withCredentials([string(credentialsId: 'HEROKU_API_KEY', variable: 'HEROKU_API_KEY')]) {
-		sh "./mvnw -X com.heroku.sdk:heroku-maven-plugin:2.0.5:deploy -DskipTests -Pprod -Dheroku.appName="
+		sh "./mvnw com.heroku.sdk:heroku-maven-plugin:2.0.5:deploy -DskipTests -Pprod -Dheroku.appName="
 		archiveArtifacts artifacts: '**/target/*.war', fingerprint: true
 		}     
     }    	
