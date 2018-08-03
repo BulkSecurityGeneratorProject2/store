@@ -567,13 +567,23 @@
                 <artifactId>dockerfile-maven-plugin</artifactId>
                 <version>${dockerfile-maven-plugin.version}</version>
                 <executions>                    
+                     <!--
+                     Uncomment the section below to build the docker image with mvn package and and push it with mvn deploy
+                    <execution>
                     <execution>
                         <id>default</id>
+                        <id>default</id>
+                        <goals>
                         <goals>
                             <goal>build</goal>
+                            <goal>build</goal>
+                            <goal>push</goal>
                             <goal>push</goal>
                         </goals>
+                        </goals>
+                    </execution>
                     </execution>                    
+                    -->                    
                     <execution>
                         <id>tag-latest</id>
                         <phase>none</phase>
